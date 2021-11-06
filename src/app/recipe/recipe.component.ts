@@ -1,3 +1,4 @@
+import { RecipeInfo } from './../share/recipe.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class RecipeComponent implements OnInit {
 
   constructor() { }
-
+  public Recipe:RecipeInfo = {name:'default', description:'default',imagePath:'default'};
   ngOnInit(): void {
   }
 
+  RenderRecipeDetail(e:any){
+    this.Recipe = e;
+  }
 }

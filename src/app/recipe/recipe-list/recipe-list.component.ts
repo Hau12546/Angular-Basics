@@ -1,5 +1,6 @@
+import {RecipeInfo} from '../../share/recipe.model';
 import { Recipe } from './../recipe.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-list',
@@ -8,11 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeListComponent implements OnInit {
   Recipes: Recipe[] = [
-    new Recipe('A test recipe','This is a test','https://images.twinkl.co.uk/tw1n/image/private/t_630/image_repo/4e/7b/au-t2-e-5093-pancake-recipe-english_ver_5.jpg')
+    new Recipe('pad kra pao',
+    'Minced offcut stalks and skins bring body and flavour to many dishes, such as this pad kra pao',
+    'https://i.guim.co.uk/img/media/1e1d7ce465772ce9454a7d8adbdfcb683ad367db/0_0_4992_3328/master/4992.jpg?width=1020&quality=85&auto=format&fit=max&s=22b143f1d34cb4983d5dc2dccc520c2a')
   ]
+  @Output('Emitter') Emitter:EventEmitter<RecipeInfo> = new EventEmitter();
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
+  }
+
+  GetRecipeDetail(e:any){
+    this.Emitter.emit(e);
   }
 
 }

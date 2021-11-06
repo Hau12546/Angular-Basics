@@ -24,12 +24,18 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="RecipeDetail.name!='default'">
     <div class="col-xs-12 p-1">
-						Description
+      {{RecipeDetail.name}}
     </div>
-				<div class="col-xs-12 p-1">
-						Ingredients
+    <div class="col-xs-12 p-1">
+      {{RecipeDetail.description}}
+    </div>
+    <div class="col-xs-12 p-1">
+      <img [src]="RecipeDetail.imagePath" width="300px" height="100%"  alt="">
+    </div>
+    <div class="col-xs-12 p-1">
+      Ingredients
     </div>
   </div>
 </div>
