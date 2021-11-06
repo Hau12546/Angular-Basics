@@ -6,3 +6,8 @@ export class Ingredients{
 		this.Amount = amount;
 	}
 }
+
+export interface IngredientInfo {
+  name?:string,
+  amount:number
+}
