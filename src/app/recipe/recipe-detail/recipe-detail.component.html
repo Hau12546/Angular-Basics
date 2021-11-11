@@ -9,21 +9,6 @@
       <h1 class="text-warning">Example heading</h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12 p-1">
-      <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Mangage Recipe
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">To Shopping List</a>
-          <a class="dropdown-item" href="#">Edit Recipe</a>
-          <a class="dropdown-item" href="#">Remove Recipe</a>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="row" *ngIf="RecipeDetail.name!='default'">
     <div class="col-xs-12 p-1">
       {{RecipeDetail.name}}
@@ -34,8 +19,31 @@
     <div class="col-xs-12 p-1">
       <img [src]="RecipeDetail.imagePath" width="300px" height="100%"  alt="">
     </div>
+    <div class="row">
+      <div class="col-xs-12 p-1">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Mangage Recipe
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="AddtoShopList()" href="#">To Shopping List</a>
+            <a class="dropdown-item" href="#">Edit Recipe</a>
+            <a class="dropdown-item" href="#">Remove Recipe</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="col-xs-12 p-1">
-      Ingredients
+      <ng-container *ngFor="let ingredients of RecipeDetail.IngredientList">
+        <div class="card">
+          <img class="card-img-top"alt="">
+          <div class="card-body">
+            <h4 class="card-title">Name: {{ingredients.name}}</h4>
+            <h5 class="card-text">Amount: {{ingredients.amount}}</h5>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

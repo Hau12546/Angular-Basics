@@ -4,13 +4,19 @@
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
-          <input #nameInput (focusout)="GetIngredientName()" type="text" id="name" class="form-control" />
+          <input #nameInput  type="text" id="name" class="form-control" />
         </div>
         <div class="col-sm-2 form-group">
           <label for="name">Amount</label>
-          <input #amountInput (focusout)="GetIngredientAmount()" type="number" id="name" class="form-control" />
+          <input #amountInput  type="number" id="name" class="form-control" />
         </div>
       </div>
-    </form>
+      <div class="row">
+        <div class="col-xs-12 pt-2">
+          <button type="button" (click)="AddIngredients()" class="btn btn-success m-1">Add Recipe</button>
+          <button type="button" (click)="DeleteIngredients()" class="btn btn-danger m-1">Delete Recipe</button>
+          <button type="button" (click)="ClearIngredients()" class="btn btn-primary m-1">Clear Recipe</button>
+        </div>
+      </div></form>
   </div>
 </div>

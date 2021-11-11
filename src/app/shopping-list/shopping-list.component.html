@@ -1,19 +1,12 @@
 <div class="row">
   <div class="col-xs-10">
-    <app-shopping-edit (Emitter)="RenderIngredients($event)"></app-shopping-edit>
-    <div class="row">
-      <div class="col-xs-12 pt-2">
-        <button type="button" (click)="AddIngredients()" class="btn btn-success m-1">Add Recipe</button>
-        <button type="button" (click)="DeleteIngredients()" class="btn btn-danger m-1">Delete Recipe</button>
-        <button type="button" (click)="ClearIngredients()" class="btn btn-primary m-1">Clear Recipe</button>
-      </div>
-    </div>
+    <app-shopping-edit ></app-shopping-edit>
     <hr>
     <ul class="list-group p-1" >
       <li #Element (click)="GetRemoveData(ingredient , Element)"
       [IngredientData]="ingredient"
       class="list-group-item m-1 border border-1 border-danger p-2"
-      *ngFor="let ingredient of IngredientList; let index as i">
+      *ngFor="let ingredient of IngredientList; let i = index">
         <a class="beautiful-link" href="#"
               style="cursor: pointer"
         >{{ingredient.name}} - {{ingredient.amount}}kg</a></li>

@@ -1,5 +1,7 @@
+import { RecipeService } from './../share/services/recipe-services/recipe.service';
 import { RecipeInfo } from './../share/recipe.model';
 import { Component, OnInit } from '@angular/core';
+import { Recipe } from './recipe.model';
 
 @Component({
   selector: 'app-recipe',
@@ -8,12 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeComponent implements OnInit {
 
-  constructor() { }
-  public Recipe:RecipeInfo = {name:'default', description:'default',imagePath:'default'};
+  constructor(private recipeService:RecipeService) { }
+  public Recipe:Recipe = {
+    name: 'default', description: 'default', imagePath: 'default',
+    IngredientList: []
+  };
   ngOnInit(): void {
+    this.RenderRecipeDetail();
   }
 
-  RenderRecipeDetail(e:any){
-    this.Recipe = e;
+  RenderRecipeDetail(){
+    this.recipeService.GetEmitter().subscribe((value:Recipe)=>{
+      this.Recipe = value;
+    })
   }
 }

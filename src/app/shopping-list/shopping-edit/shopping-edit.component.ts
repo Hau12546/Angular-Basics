@@ -1,5 +1,6 @@
 import { IngredientInfo } from './../../share/ingredient.model';
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
+import { ShoppingService } from 'src/app/share/services/shopping-services/shopping.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -11,42 +12,32 @@ export class ShoppingEditComponent implements OnInit {
   @ViewChild('amountInput') IngredientsAmount:ElementRef|undefined;
   @Output('Emitter') Emitter:EventEmitter<IngredientInfo> = new EventEmitter();
   @Input('IngredientData') public Ingredients:IngredientInfo = {name:'default',amount:0};
-  constructor() { }
+  constructor(private shopService:ShoppingService) { }
 
   ngOnInit() {
   }
 
-  GetIngredientName(){
-    try {
-      if(this.IngredientsName?.nativeElement.value){
-        this.Ingredients.name= this.IngredientsName?.nativeElement.value;
-        this.SendIngredients();
-        return;
-      }
-      throw new Error("No Ingredient's Name found");
-    } catch (error) {
-      alert(error);
+
+  AddIngredients(){
+    if(this.IngredientsName?.nativeElement.value && this.IngredientsAmount?.nativeElement.value >0){
+      const Ingredient = {name:this.IngredientsName?.nativeElement.value, amount:this.IngredientsAmount?.nativeElement.value};
+      this.shopService.AddIngredient(Ingredient);
     }
   }
 
-  GetIngredientAmount(){
-    try {
-      if(this.IngredientsAmount?.nativeElement.value){
-        this.Ingredients.amount= this.IngredientsAmount?.nativeElement.value;
-        this.SendIngredients();
-        return;
-      }
-      throw new Error("No Ingredient's Amount found");
-    } catch (error) {
-      alert(error);
-    }
+  DeleteIngredients(){
+    // if(this.IngredientList.map((value)=>{return value.name}).includes(ingredient.name)){
+    //   const index = this.IngredientList.findIndex(value=>value.name == ingredient.name);
+    //   if(index != -1){
+    //     ingredient = {name:'',amount:0};
+    //     this.IngredientList.splice(index,1);
+    //     return;
+    //   }
+    // }
   }
 
-  SendIngredients(){
-    if(this.Ingredients.name && this.Ingredients.amount){
-      console.log(this.Ingredients);
-      this.Emitter.emit(this.Ingredients);
-    }
+  ClearIngredients(){
+    this.shopService.ResetIngredients();
   }
 
 }

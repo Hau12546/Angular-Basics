@@ -1,3 +1,4 @@
+import { RecipeService } from './share/services/recipe-services/recipe.service';
 import { CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ,NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,6 +13,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { FormsModule } from '@angular/forms';
 import { DropdownDirective } from './share/dropdown.directive';
+import { ShoppingService } from './share/services/shopping-services/shopping.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { DropdownDirective } from './share/dropdown.directive';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [RecipeService, ShoppingService],
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })

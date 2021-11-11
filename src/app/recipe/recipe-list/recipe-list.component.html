@@ -6,6 +6,6 @@
   </div>
   <div class="col-xs-12" >
   <div class="row p-1" >
-    <app-recipe-item #RecipeDetail (click)="GetRecipeDetail(RecipeDetail.RecipeData)" [RecipeData]="recipe" *ngFor="let recipe of Recipes; let index as i"></app-recipe-item>
+    <app-recipe-item #RecipeDetail (click)="GetRecipeDetail(RecipeDetail.RecipeData)" [RecipeData]="recipe" *ngFor="let recipe of Recipes; let i = index"></app-recipe-item>
   </div>
 </div>
