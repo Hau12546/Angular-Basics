@@ -22,14 +22,14 @@
     <div class="row">
       <div class="col-xs-12 p-1">
         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Mangage Recipe
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" (click)="AddtoShopList()" href="#">To Shopping List</a>
-            <a class="dropdown-item" href="#">Edit Recipe</a>
-            <a class="dropdown-item" href="#">Remove Recipe</a>
+            <a class="dropdown-item" (click)="AddtoShopList()" >To Shopping List</a>
+            <a class="dropdown-item" [routerLink]="['edit']" >Edit Recipe</a>
+            <a class="dropdown-item" >Remove Recipe</a>
           </div>
         </div>
       </div>

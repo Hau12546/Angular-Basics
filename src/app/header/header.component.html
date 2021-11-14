@@ -1,22 +1,28 @@
 <!-- Nav tabs -->
-<ul class="nav nav-tabs bg-primary " id="navId">
+<ul class="nav nav-tabs bg-primary pt-3 pb-3 " id="navId">
   <li class="nav-item">
-    <a href="#tab1Id" class="nav-link text-white">Recipe Book</a>
+    <a  class="nav-link text-white">Recipe Book</a>
   </li>
   <li  class="nav-item dropdown">
-    <a  class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Manage</a>
-    <div class="dropdown-menu">
-      <a  class="dropdown-item" href="#tab2Id">Action</a>
-      <a  class="dropdown-item" href="#tab3Id">Another action</a>
+    <a  class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Manage</a>
+    <div class="dropdown-menu" >
+      <a  class="dropdown-item" >Action</a>
+      <a  class="dropdown-item" >Another action</a>
       <div class="dropdown-divider"></div>
-      <a  class="dropdown-item" href="#tab4Id">Action</a>
+      <a  class="dropdown-item" >Action</a>
     </div>
   </li>
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a href="#tab5Id" #RecipeLink (click)="NavigateToRecipe()" class="nav-link text-white">Reipes</a>
   </li>
   <li class="nav-item">
     <a href="#" #ShoppingLink (click)="NavigateToShopping()" class="nav-link text-white">Shopping List</a>
+  </li> -->
+  <li class="nav-item">
+    <a  #RecipeLink [routerLink]="['/recipe']" [routerLinkActive]="['selected-link']" [routerLinkActiveOptions]="{exact:true}"  class="nav-link text-dark">Reipes</a>
+  </li>
+  <li class="nav-item">
+    <a  #ShoppingLink [routerLink]="['/shopping']" [routerLinkActive]="['selected-link']" [routerLinkActiveOptions]="{exact:true}"  class="nav-link text-dark">Shopping List</a>
   </li>
 </ul>
 
@@ -35,3 +41,4 @@
     $(this).tab('show');
   });
 </script>
+

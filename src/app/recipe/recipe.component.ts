@@ -1,7 +1,16 @@
-import { RecipeService } from './../share/services/recipe-services/recipe.service';
-import { RecipeInfo } from './../share/recipe.model';
-import { Component, OnInit } from '@angular/core';
-import { Recipe } from './recipe.model';
+import {
+  RecipeService
+} from './../share/services/recipe-services/recipe.service';
+import {
+  RecipeInfo
+} from './../share/recipe.model';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  Recipe
+} from './recipe.model';
 
 @Component({
   selector: 'app-recipe',
@@ -10,17 +19,20 @@ import { Recipe } from './recipe.model';
 })
 export class RecipeComponent implements OnInit {
 
-  constructor(private recipeService:RecipeService) { }
-  public Recipe:Recipe = {
-    name: 'default', description: 'default', imagePath: 'default',
+  constructor(private recipeService: RecipeService) {}
+  public Recipe: Recipe = {
+    id:0,
+    name: 'default',
+    description: 'default',
+    imagePath: 'default',
     IngredientList: []
   };
   ngOnInit(): void {
     this.RenderRecipeDetail();
   }
 
-  RenderRecipeDetail(){
-    this.recipeService.GetEmitter().subscribe((value:Recipe)=>{
+  RenderRecipeDetail() {
+    this.recipeService.GetEmitter().subscribe((value: Recipe) => {
       this.Recipe = value;
     })
   }

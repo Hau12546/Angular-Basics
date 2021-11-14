@@ -3,3 +3,10 @@ a{
  text-decoration: none;
  text-transform: none;
 }
+
+.selected-link{
+  color: #FFFF!important;
+  background-color: #6d98da;
+  box-shadow: -3px 3px #6d98da, -2px 2px #6d98da, -3px 3px #6d98da;
+  border: 1px solid #6d98da !important;
+}
