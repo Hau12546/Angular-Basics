@@ -1,19 +1,31 @@
 <div class="row">
   <div class="col-xs-12">
-    <form>
+    <form  #Ingredient="ngForm">
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
-          <input #nameInput  type="text" id="name" class="form-control" />
+          <input ngModel
+          name="IngredientName"
+          type="text"
+          id="name"
+          class="form-control"
+          required
+           />
         </div>
         <div class="col-sm-2 form-group">
           <label for="name">Amount</label>
-          <input #amountInput  type="number" id="name" class="form-control" />
+          <input ngModel
+          name="IngredientAmount"
+          type="number"
+          id="name"
+          class="form-control"
+          required
+          [pattern]="'^[1-9]+[0-9]*$'" />
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 pt-2">
-          <button type="button" (click)="AddIngredients()" class="btn btn-success m-1">Add Recipe</button>
+          <button type="button" (click)="(EditMode)?UpdateIngredients():AddIngredients()" class="btn btn-success m-1" [disabled]="!Ingredient.valid">{{(this.EditMode)?'Update':'Add'}}</button>
           <button type="button" (click)="DeleteIngredients()" class="btn btn-danger m-1">Delete Recipe</button>
           <button type="button" (click)="ClearIngredients()" class="btn btn-primary m-1">Clear Recipe</button>
         </div>

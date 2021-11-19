@@ -9,5 +9,6 @@ export class Ingredients{
 
 export interface IngredientInfo {
   name?:string,
-  amount:number
+  amount:number,
+  onFocus?:boolean
 }

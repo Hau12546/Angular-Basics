@@ -1,5 +1,5 @@
 import { Ingredients, IngredientInfo } from './../share/ingredient.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { ShoppingService } from '../share/services/shopping-services/shopping.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class ShoppingListComponent implements OnInit {
   IngredientList:IngredientInfo[] =[];
   // Temp:IngredientInfo = {name:'default',amount:0};
    regex = /focus/g;
-  constructor(private shopService:ShoppingService) { }
+  constructor(private shopService:ShoppingService, private el:ElementRef, private render:Renderer2) { }
 
   ngOnInit() {
     this.RenderIngredients();
@@ -24,8 +24,11 @@ export class ShoppingListComponent implements OnInit {
     this.IngredientList= this.shopService.GetIngredientList();
   }
 
-  GetRemoveData(ingredient:IngredientInfo, e:any){
-    console.log(e.getAttribute('class').match(this.regex));
-    (e.getAttribute('class').match(this.regex))? e.classList.remove('focus'): e.classList.add('focus');
+  GetRemoveData(index:number){
+    this.IngredientList.forEach((value:IngredientInfo)=>{
+      value.onFocus  =false;
+    });
+    this.IngredientList[index].onFocus = true;
+    this.shopService.GetObservableEmitter().next(index);
   }
 }
