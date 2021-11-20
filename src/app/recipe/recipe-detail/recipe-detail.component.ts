@@ -10,9 +10,11 @@ import {
 } from './../../share/recipe.model';
 import {
   Component,
+  ElementRef,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
+  Renderer2
 } from '@angular/core';
 import {
   Recipe
@@ -40,11 +42,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     IngredientList: []
   };
   SubscriptionList: Subscription[] = [];
-  constructor(private recipeService:RecipeService,private ShoppingService: ShoppingService, private route: Router, private activeRoute: ActivatedRoute) {}
-
+  constructor(private recipeService:RecipeService,private ShoppingService: ShoppingService, private route: Router, private activeRoute: ActivatedRoute
+  ,private render:Renderer2, private el:ElementRef) {}
+  EditRecipe:boolean = false;
+  Recipe:RecipeInfo = {};
   ngOnInit(): void {
     // this.GetRecipeDetailsFromQueryParams();
     this.GetRecipeDetailsFromParams();
+    this.GetRemoveRecipe();
   }
 
   AddtoShopList() {
@@ -99,6 +104,33 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     }
     return;
   }
+
+  GetRemoveRecipe(){
+    const Subscription3 =  this.recipeService.RemoveRecipeEmitter.subscribe((value:RecipeInfo)=>{
+      this.EditRecipe = true;
+      this.Recipe = value;
+    });
+    this.AddSubscription(Subscription3);
+  };
+
+  DeleteRecipe(){
+    if(Object.values(this.Recipe).length == 0 && Object.values(this.RecipeDetail).length > 0)
+    {
+      this.recipeService.RemoveRecipe(this.RecipeDetail);
+      this.route.navigate(['/recipe'])
+      return;
+    };
+
+    if(Object.values(this.Recipe).length > 0)
+    {
+      this.recipeService.RemoveRecipe(this.RecipeDetail);
+      this.route.navigate(['/recipe'])
+      return;
+    };
+
+
+  }
+
 
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.

@@ -1,6 +1,6 @@
 <div class="row mt-2">
   <div class="col-xs-1-12">
-    <a [routerLink]="[RecipeData.id]" [routerLinkActive]="['active']">
+    <a [routerLink]="[RecipeData.id]" [routerLinkActive]="['active']" (click)="SendRecipeToDetail()">
       <div class="card">
         <div class="card-body">
           <h3 class="card-title text-primary">{{RecipeData.name}}</h3>

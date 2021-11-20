@@ -1,1 +1,54 @@
-<p>recipe-edit works!</p>
+<div class="container">
+  <!-- add fomr group -->
+  <form action="" [formGroup]="RecipeForm" (ngSubmit)="OnSaveRecipe()">
+    <button type="submit" class="btn btn-success m-3">Save</button>
+    <button type="button" (click)="CancelRecipeCreation()" class="btn btn-danger">Cancel</button>
+    <div class="row">
+      <div class="form-group mb-3">
+        <label for="">Name</label>
+        <input type="text" class="form-control" formControlName="RecipeName" id="" aria-describedby="helpId"
+          placeholder="Recipe Name">
+        <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+      </div>
+      <div class="form-group mb-3">
+        <label for="">Image</label>
+        <input type="text" class="form-control" formControlName="RecipeImage" id="" aria-describedby="helpId"
+          placeholder="Recipe Image">
+      </div>
+      <img *ngIf="RecipeForm.get('RecipeImage')?.value" [src]="RecipeForm.get('RecipeImage')?.value" class="img-fluid" alt="">
+      <div class="form-group mb-3">
+        <label for="">Description</label>
+        <textarea class="form-control" formControlName="RecipeComment" id="" rows="3"
+          placeholder="Recipe Descriptions"></textarea>
+      </div>
+    </div>
+    <div class="row" >
+      <h3><span class="badge badge-primary bg-primary">Recipe's Ingredients</span></h3>
+      <div class="col-sm-4"><button type="button" class="btn btn-primary" (click)="CreateIngredient()">ADD Ingredient</button></div>
+      <div class="col-xl-12" formArrayName="RecipeIngredient">
+        <div class="row m-2"
+        *ngFor="let ingredient of GetIngredient(); let i=index"
+        [formGroupName]="i"
+        ><div class="col-xl-8" >
+          <div class="form-group">
+            <!-- <label for=""></label> -->
+            <input type="text" formControlName="ingredient.name" class="form-control" formControlName="name" id="" aria-describedby="helpId"
+              placeholder="Ingredient Name">
+            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <!-- <label for=""></label> -->
+            <input type="number" formControlName="ingredient.amount"class="form-control" formControlName="amount" name="" id=""
+              aria-describedby="helpId" placeholder=".kg">
+            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+          </div>
+        </div>
+        <div class="col-md-2 d-flex align-items-end ">
+          <button type="button" class="btn btn-danger w-100" (click)=" RemoveIngredient(i)">X</button>
+        </div></div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -43,6 +43,11 @@ const routes: Routes = [{
         path: ':id/edit',
         component: RecipeEditComponent
       },
+      {
+        path: '**',
+        pathMatch:'full',
+        component: RecipeStarterComponent
+      },
     ]
   },
   {
