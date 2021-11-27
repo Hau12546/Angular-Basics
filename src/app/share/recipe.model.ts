@@ -6,3 +6,9 @@ export interface RecipeInfo  {
   imagePath?:string,
   IngredientList?:IngredientInfo[]
 }
+
+
+export interface SaveOptions{
+  single?:boolean,
+  all?:boolean
+}

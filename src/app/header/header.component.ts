@@ -6,6 +6,9 @@ import {
   ViewChild,
   EventEmitter
 } from '@angular/core';
+import { SaveOptions } from '../share/recipe.model';
+import { DataStorageService } from '../share/services/data-storage-service/data-storage.service';
+import { RecipeService } from '../share/services/recipe-services/recipe.service';
 
 
 
@@ -32,8 +35,7 @@ export class HeaderComponent extends CommonAction implements OnInit {
   @ViewChild('RecipeLink') RecipeLink: ElementRef | undefined;
   @ViewChild('ShoppingLink') ShoppingLink: ElementRef | undefined;
   @Output('Emitter') Emitter: EventEmitter < string > = new EventEmitter();
-  private CommonAction = new CommonAction();
-  constructor() {
+  constructor(private recipeService:RecipeService, private dataService:DataStorageService) {
     super();
   }
 
@@ -65,4 +67,16 @@ export class HeaderComponent extends CommonAction implements OnInit {
       alert(error);
     }
   }
+
+  SaveRecipe(){
+    const Savechoice:SaveOptions  = {single:false, all:true}
+    this.recipeService.SendSignalToSaveInDataBase(Savechoice);
+  }
+
+
+  FetchRecipe(){
+    this.recipeService.SendSignalToSaveInDataBase({single:false, all:false},true);
+  }
+
+
 }

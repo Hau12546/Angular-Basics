@@ -1,3 +1,5 @@
+import { SaveOptions } from './../../share/recipe.model';
+import { DataStorageService } from './../../share/services/data-storage-service/data-storage.service';
 import {
   RecipeService
 } from './../../share/services/recipe-services/recipe.service';
@@ -29,12 +31,21 @@ export class RecipeListComponent implements OnInit,OnDestroy {
   Recipes: RecipeInfo[] = [];
   SubscriptionList:Subscription[] = [];
   // @Output('Emitter') Emitter:EventEmitter<RecipeInfo> = new EventEmitter();
-  constructor(private recipeService: RecipeService, private route: Router, private activeRoute: ActivatedRoute) {}
+  constructor(private recipeService: RecipeService, private route: Router, private activeRoute: ActivatedRoute,
+    private dataService:DataStorageService) {}
 
   ngOnInit() {
-    this.Recipes = this.recipeService.GetRecipes();
+    this.InitialProcessing();
     this.RenderRecipeList();
-    console.log(this.Recipes);
+    this.GetRecipeFromDB();
+    this.SaveAllRecipes();
+  }
+
+   InitialProcessing(){
+    // this.recipeService.GetRecipes().subscribe((value:any)=>{
+    //   this.Recipes = value;
+    // });;
+    this.Recipes =  this.recipeService.GetRecipes();
   }
 
   GetRecipeDetail(e: any) {
@@ -48,6 +59,21 @@ export class RecipeListComponent implements OnInit,OnDestroy {
     //   },
     //   relativeTo:this.activeRoute,
     // });
+  }
+  GetRecipeFromDB(){
+    const Subscription2 =  this.recipeService.FetchDataBaseSignal.subscribe((value:boolean)=>{
+        this.dataService.FetchRecipe().subscribe((value:RecipeInfo[])=>{
+          if(value.length>0) this.Recipes = value;
+        });
+    });
+    this.SubscriptionList.push(Subscription2);
+  };
+
+  SaveAllRecipes(){
+    const Subscription3 = this.recipeService.SaveDataBaseSignal.subscribe((value:SaveOptions)=>{
+      this.dataService.SaveRecipe(this.Recipes);
+    });
+    this.AddSubsciption(Subscription3);
   }
 
   RenderRecipeList(){
@@ -69,9 +95,5 @@ export class RecipeListComponent implements OnInit,OnDestroy {
       subscribe.unsubscribe();
     })
   }
-
-
-
-
 
 }

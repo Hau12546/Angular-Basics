@@ -6,7 +6,7 @@ import {
   ShoppingService
 } from 'src/app/share/services/shopping-services/shopping.service';
 import {
-  RecipeInfo
+  RecipeInfo, SaveOptions
 } from './../../share/recipe.model';
 import {
   Component,
@@ -27,6 +27,7 @@ import {
 import {
   Subscription
 } from 'rxjs';
+import { DataStorageService } from 'src/app/share/services/data-storage-service/data-storage.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -43,13 +44,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   };
   SubscriptionList: Subscription[] = [];
   constructor(private recipeService:RecipeService,private ShoppingService: ShoppingService, private route: Router, private activeRoute: ActivatedRoute
-  ,private render:Renderer2, private el:ElementRef) {}
+  ,private render:Renderer2, private el:ElementRef, private dataService:DataStorageService) {}
   EditRecipe:boolean = false;
   Recipe:RecipeInfo = {};
   ngOnInit(): void {
     // this.GetRecipeDetailsFromQueryParams();
     this.GetRecipeDetailsFromParams();
     this.GetRemoveRecipe();
+    this.SaveRecipeToDB();
   }
 
   AddtoShopList() {
@@ -77,7 +79,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   GetRecipeDetailsFromParams() {
     const Subscription2 = this.activeRoute.params.subscribe((recipe: Params) => {
-      console.log(recipe.id)
       this.RecipeDetail = this.GetRecipeFromRecipeService(recipe.id) || {
         id:0,
         name: 'default',
@@ -87,6 +88,13 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       };
     });
     this.AddSubscription(Subscription2);
+  }
+
+  SaveRecipeToDB(){
+    const Subscription3 =  this.recipeService.SaveDataBaseSignal.subscribe((value:SaveOptions)=>{
+      if(value.single) this.dataService.SaveRecipe(this.RecipeDetail);
+    });
+    this.AddSubscription(Subscription3);
   }
 
   GetRecipeFromRecipeService(id:number){
