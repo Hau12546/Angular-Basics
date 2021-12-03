@@ -13,7 +13,7 @@ import { RecipeService } from '../recipe-services/recipe.service';
 export class DataStorageService {
   ReipeList:RecipeInfo[] = [];
   constructor(private http:HttpClient, private recipeService:RecipeService) {
-    this.FirstFetch();
+
    }
 
 

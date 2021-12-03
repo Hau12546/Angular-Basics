@@ -19,10 +19,16 @@
     <a href="#" #ShoppingLink (click)="NavigateToShopping()" class="nav-link text-white">Shopping List</a>
   </li> -->
   <li class="nav-item">
-    <a  #RecipeLink [routerLink]="['/recipe']" [routerLinkActive]="['selected-link']" [routerLinkActiveOptions]="{exact:true}"  class="nav-link text-dark">Reipes</a>
+    <a [routerLink]="['/authentication']" [routerLinkActive]="['selected-link']" [routerLinkActiveOptions]="{exact:true}" *ngIf="!IsLogin" class="nav-link text-dark">Login</a>
+  </li>
+  <li class="nav-item">
+    <a  #RecipeLink [routerLink]="['/recipe']" [routerLinkActive]="['selected-link']" [routerLinkActiveOptions]="{exact:true}" *ngIf="IsLogin"  class="nav-link text-dark">Reipes</a>
   </li>
   <li class="nav-item">
     <a  #ShoppingLink [routerLink]="['/shopping']" [routerLinkActive]="['selected-link']" [routerLinkActiveOptions]="{exact:true}"  class="nav-link text-dark">Shopping List</a>
+  </li>
+  <li class="nav-item nav-item-left ">
+    <a  #ShoppingLink [routerLink]="['/authentication']" (click)="LoggingOut()" [routerLinkActive]="['selected-link']" [routerLinkActiveOptions]="{exact:true}" *ngIf="IsLogin"  class="nav-link text-dark">Logout</a>
   </li>
 </ul>
 

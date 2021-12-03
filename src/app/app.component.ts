@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenService } from './share/services/authen/authen.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,12 @@ export class AppComponent  {
   title = 'App-Course';
   RecipeInfoDisplayFlg:boolean = false;
   ShoppingInfoDisplayFlg:boolean = false;
+  constructor(private authen:AuthenService){}
   ngOnInit() {
     this.RenderContent();
+    this.authen.AutoLogin().subscribe((value:any)=>{
+      console.log(value);
+    });
   }
 
   RenderContent(e:any=undefined){

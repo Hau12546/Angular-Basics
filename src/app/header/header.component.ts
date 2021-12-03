@@ -1,14 +1,20 @@
+import { AuthResponseData } from 'src/app/share/Login.model';
+import { AuthenService } from './../share/services/authen/authen.service';
 import {
   Component,
   ElementRef,
   OnInit,
   Output,
   ViewChild,
-  EventEmitter
+  EventEmitter,
+  OnDestroy
 } from '@angular/core';
 import { SaveOptions } from '../share/recipe.model';
 import { DataStorageService } from '../share/services/data-storage-service/data-storage.service';
 import { RecipeService } from '../share/services/recipe-services/recipe.service';
+import { User } from '../share/user.model';
+import { ignoreElements } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 
 
@@ -31,15 +37,19 @@ class CommonAction {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent extends CommonAction implements OnInit {
+export class HeaderComponent extends CommonAction implements OnInit,OnDestroy {
   @ViewChild('RecipeLink') RecipeLink: ElementRef | undefined;
   @ViewChild('ShoppingLink') ShoppingLink: ElementRef | undefined;
   @Output('Emitter') Emitter: EventEmitter < string > = new EventEmitter();
-  constructor(private recipeService:RecipeService, private dataService:DataStorageService) {
+  SubscriptionList:Subscription[] = []
+  IsLogin:boolean = false;
+  constructor(private recipeService:RecipeService, private dataService:DataStorageService, private authen:AuthenService) {
     super();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.LogStateToggle();
+  }
 
 
   NavigateToRecipe() {
@@ -78,5 +88,31 @@ export class HeaderComponent extends CommonAction implements OnInit {
     this.recipeService.SendSignalToSaveInDataBase({single:false, all:false},true);
   }
 
+  AddSubscription(subscribe:Subscription){
+    this.SubscriptionList.push(subscribe);
+  }
+
+  LogStateToggle(){
+    const Subscription1 =  this.authen.UserObservable.subscribe((value:any)=>{
+      if(Object.values(value).length>0) this.IsLogin = true;
+      if(Object.values(value).length==0) this.IsLogin = false;
+    });
+    this.AddSubscription(Subscription1);
+  }
+
+
+  LoggingOut(){
+    this.IsLogin = false;
+    this.authen.LogOut();
+  }
+
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.SubscriptionList.forEach((subscribe:Subscription)=>{
+      subscribe.unsubscribe();
+    });
+  }
 
 }

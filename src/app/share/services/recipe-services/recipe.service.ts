@@ -39,6 +39,7 @@ export class RecipeService {
   };
 
   GetSingleRecipe(id:number = -1){
+    console.log(this.Recipes);
     if(id>0){
       const TargetRecipe= this.Recipes.find((value:Recipe)=>value.id == id);
       return TargetRecipe;

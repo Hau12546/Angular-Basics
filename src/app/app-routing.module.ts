@@ -21,10 +21,18 @@ import {
   RecipeDetailComponent
 } from './recipe/recipe-detail/recipe-detail.component';
 import { RecipeStarterComponent } from './recipe/recipe-starter/recipe-starter.component';
+import { AuthPageComponent } from './auth/auth-page/auth-page.component';
+import { AuthGuardGuard } from './share/services/auth-guard-service/auth-guard.guard';
 
-const routes: Routes = [{
+const routes: Routes = [
+  {
+    path:'authentication',
+    component:AuthPageComponent
+  },
+  {
     path: 'recipe',
     component: RecipeComponent,
+    canActivate:[AuthGuardGuard],
     children: [
       {
         path:'',
@@ -56,11 +64,11 @@ const routes: Routes = [{
   }, {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'recipe'
+    redirectTo: 'authentication'
   }, {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'recipe'
+    redirectTo: 'authentication'
   },
 ];
 

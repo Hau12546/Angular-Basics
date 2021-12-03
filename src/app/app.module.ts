@@ -16,7 +16,11 @@ import { ShoppingService } from './share/services/shopping-services/shopping.ser
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 import { RecipeStarterComponent } from './recipe/recipe-starter/recipe-starter.component';
 import { DataStorageService } from './share/services/data-storage-service/data-storage.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { AuthPageComponent } from './auth/auth-page/auth-page.component';
+import { AuthenService } from './share/services/authen/authen.service';
+import { SpinnerComponent } from './share/spinner/spinner/spinner.component';
+import { AuthInterceptorInterceptor } from './share/services/auth-interceptor-service/auth-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import {HttpClientModule} from '@angular/common/http';
     ShoppingEditComponent,
     DropdownDirective,
     RecipeEditComponent,
-    RecipeStarterComponent
+    RecipeStarterComponent,
+    AuthPageComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,8 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [RecipeService, ShoppingService, DataStorageService],
+  providers: [RecipeService, ShoppingService, DataStorageService, AuthenService,
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorInterceptor ,multi:true,}],
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })

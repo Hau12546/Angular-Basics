@@ -21,6 +21,8 @@ import {
   Router
 } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthenService } from 'src/app/share/services/authen/authen.service';
+import { User } from 'src/app/share/user.model';
 
 @Component({
   selector: 'app-recipe-list',
@@ -32,13 +34,14 @@ export class RecipeListComponent implements OnInit,OnDestroy {
   SubscriptionList:Subscription[] = [];
   // @Output('Emitter') Emitter:EventEmitter<RecipeInfo> = new EventEmitter();
   constructor(private recipeService: RecipeService, private route: Router, private activeRoute: ActivatedRoute,
-    private dataService:DataStorageService) {}
+    private dataService:DataStorageService, private authen:AuthenService) {}
 
   ngOnInit() {
     this.InitialProcessing();
     this.RenderRecipeList();
     this.GetRecipeFromDB();
     this.SaveAllRecipes();
+    this.dataService.FirstFetch();
   }
 
    InitialProcessing(){

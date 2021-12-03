@@ -1,0 +1,30 @@
+<div class="container d-flex align-items-center flex-column pt-5">
+  <div class="alert alert-warning col-xl-12" role="alert" *ngIf="IsError">
+    <strong>{{ErrorMessage}}!</strong>
+  </div>
+  <!-- <div *ngIf="Isloading">
+    <app-spinner ></app-spinner>
+  </div> -->
+  <div class="col-xl-8" *ngIf="!Isloading">
+    <form action="" (ngSubmit)="onSubmit()" #userInfo="ngForm">
+      <div class="mb-3">
+        <label for="" class="form-label">E-mail</label>
+        <input type="text" ngModel (focus)="SetRegisteredInfo()"
+          class="form-control" required email name="email" id="" aria-describedby="helpId" placeholder="">
+        <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+      </div>
+      <div class="mb-3">
+        <label for=""  class="form-label">Password</label>
+        <input type="text" ngModel (focus)="SetRegisteredInfo()" required [minlength]="6" [maxlength]="12" class="form-control" name="password" id="" placeholder="">
+      </div>
+      <div class="col-xl-4 d-flex align-items-center justify-content-xl-start gap-1">
+        <button type="submit" class="btn btn-primary"
+        [ngClass]="{'btn-primary': IsLogin, 'btn-danger': !IsLogin}" [disabled]="!userInfo.valid">
+        {{IsLogin?'Login':'Sign Up'}}</button>
+        <button type="button" (click)="SwitchStatus()" class="btn btn-primary"
+        [ngClass]="{'btn-primary': IsLogin, 'btn-danger': !IsLogin}">
+        {{IsLogin?'Switch to Login':'Switch to Sign Up'}}</button>
+      </div>
+    </form>
+  </div>
+</div>
