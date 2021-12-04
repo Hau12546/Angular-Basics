@@ -1,10 +1,12 @@
 <div class="container d-flex align-items-center flex-column pt-5">
-  <div class="alert alert-warning col-xl-12" role="alert" *ngIf="IsError">
+  <!-- <div class="alert alert-warning col-xl-12" role="alert" *ngIf="IsError">
     <strong>{{ErrorMessage}}!</strong>
-  </div>
+  </div> -->
   <!-- <div *ngIf="Isloading">
     <app-spinner ></app-spinner>
   </div> -->
+  <!-- <app-alert-component [Message]="ErrorMessage" *ngIf="IsError" (alertModal)="HandleErrorModal()"></app-alert-component> -->
+  <ng-template appPlaceHolder></ng-template>
   <div class="col-xl-8" *ngIf="!Isloading">
     <form action="" (ngSubmit)="onSubmit()" #userInfo="ngForm">
       <div class="mb-3">

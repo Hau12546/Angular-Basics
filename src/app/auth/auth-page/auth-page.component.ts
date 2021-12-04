@@ -1,11 +1,11 @@
 import { AuthenService } from './../../share/services/authen/authen.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthResponseData, LoginInfo } from 'src/app/share/Login.model';
 import { Observable } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Route } from 'vue-router';
 import { Router } from '@angular/router';
+import { AlertComponentComponent } from 'src/app/share/alert-component/alert-component.component';
+import { PlaceHolderDirective } from 'src/app/share/place-holder-directive/place-holder.directive';
 
 @Component({
   selector: 'app-auth-page',
@@ -14,12 +14,14 @@ import { Router } from '@angular/router';
 })
 export class AuthPageComponent implements OnInit {
   @ViewChild('userInfo') UserInfo:NgForm | undefined;
-  constructor(private  authen:AuthenService, private router:Router) { }
+  constructor(private  authen:AuthenService, private router:Router, private factory:ComponentFactoryResolver) { }
   IsLogin:boolean = false;
   Isloading:boolean = false;
   IsError:boolean = false;
   ErrorMessage:string = '';
+  @ViewChild(PlaceHolderDirective) AlertHost!:PlaceHolderDirective|undefined;
   ngOnInit(): void {
+
   }
 
   SwitchStatus(){
@@ -51,9 +53,10 @@ export class AuthPageComponent implements OnInit {
           this.IsError = false;
         },(error:any)=>{
           // console.log(error.error.error.message);
-          this.ErrorMessage = error;
+          // this.ErrorMessage = error;
+          this.AlertMessage(error);
           this.Isloading = false;
-          this.IsError = true;
+          // this.IsError = true;
         });
       };
       if(this.IsLogin)
@@ -69,6 +72,22 @@ export class AuthPageComponent implements OnInit {
     }
     this.UserInfo?.form.reset();
     throw new Error('LoginInfo is worng');
+  }
+
+  HandleErrorModal(){
+    // this.IsError = false;
+
+  }
+
+  private AlertMessage(message:string=''){
+    const AlertComponentFactory = this.factory.resolveComponentFactory(AlertComponentComponent);
+    const AlertUIRef = this.AlertHost?.viewRef
+    AlertUIRef?.clear();
+    let AlertMessage =  AlertUIRef?.createComponent(AlertComponentFactory);
+    AlertMessage!.instance.Message = message; // 100% sure object always defined to solve possibly undefined
+    AlertMessage!.instance.CloseModal().subscribe(()=>{
+      AlertUIRef!.clear();
+    })
   }
 
 }

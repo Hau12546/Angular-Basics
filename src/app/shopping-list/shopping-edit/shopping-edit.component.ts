@@ -12,7 +12,7 @@ export class ShoppingEditComponent implements OnInit {
   // @ViewChild('nameInput') IngredientsName:ElementRef|undefined;
   // @ViewChild('amountInput') IngredientsAmount:ElementRef|undefined;
   @Output('Emitter') Emitter:EventEmitter<IngredientInfo> = new EventEmitter();
-  @Input('IngredientData') public Ingredients:IngredientInfo = {name:'default',amount:0};
+  @Input() public Ingredients:IngredientInfo = {name:'default',amount:0};
   @ViewChild('Ingredient') Ingredient:NgForm | undefined;
   EditMode:boolean = false;
   EditIngredientIndex:number=-1;
