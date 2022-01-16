@@ -2,6 +2,7 @@
 a{
  text-decoration: none;
  text-transform: none;
+ cursor: pointer;
 }
 
 .selected-link{

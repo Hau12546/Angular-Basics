@@ -57,13 +57,13 @@ export class AuthenService {
   }
 
   LogOut(){
-    this.UserObservable.next({});
-    this.router.navigate(['/authentication']);
-    // localStorage.removeItem('UserInfo');
-    if(JSON.parse(localStorage.getItem('UserInfo')||'{}')){
-      clearInterval(this.ExpirationEvent);
-    }
-    this.ExpirationEvent = null;
+    // this.UserObservable.next({});
+    // this.router.navigate(['/authentication']);
+    // // localStorage.removeItem('UserInfo');
+    // if(JSON.parse(localStorage.getItem('UserInfo')||'{}')){
+    //   clearInterval(this.ExpirationEvent);
+    // }
+    // this.ExpirationEvent = null;
   }
 
   AutoLogOut(expirationTime:number = 5000){

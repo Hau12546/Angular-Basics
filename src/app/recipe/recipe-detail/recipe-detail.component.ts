@@ -58,7 +58,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     // this.RecipeDetail.IngredientList.forEach((value:IngredientInfo)=>{
     //   this.ShoppingService.AddIngredient(value);
     // })
-    this.CustomIgredientRecursion(this.RecipeDetail.IngredientList);
+    // this.CustomIgredientRecursion(this.RecipeDetail.IngredientList);
+    this.ShoppingService.AddIngredient(this.RecipeDetail.IngredientList);
   }
 
   // GetRecipeDetailsFromQueryParams() {

@@ -1,3 +1,4 @@
+
 import { RecipeService } from './share/services/recipe-services/recipe.service';
 import { CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ,NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,6 +22,8 @@ import { AuthPageComponent } from './auth/auth-page/auth-page.component';
 import { AuthenService } from './share/services/authen/authen.service';
 import { SpinnerComponent } from './share/spinner/spinner/spinner.component';
 import { AuthInterceptorInterceptor } from './share/services/auth-interceptor-service/auth-interceptor.interceptor';
+import {StoreModule} from "@ngrx/store";
+import { ShoppingReducer, metaReducerLocalStorage } from './shopping-list/shopping-store/shopping-reducer';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { AuthInterceptorInterceptor } from './share/services/auth-interceptor-se
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot({ShopEntries:ShoppingReducer},{metaReducers:[metaReducerLocalStorage]})
   ],
   providers: [RecipeService, ShoppingService, DataStorageService, AuthenService,
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorInterceptor ,multi:true,}],
