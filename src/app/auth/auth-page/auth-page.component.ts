@@ -43,7 +43,6 @@ export class AuthPageComponent implements OnInit {
       let ObserAuth:Observable<AuthResponseData>;
       const GetAuthResult = (ObserAuth:Observable<any>) =>{
         ObserAuth.subscribe((value:any)=>{
-
           let LoginInfo:LoginInfo = {
             email:value.email,
             password:password
@@ -51,13 +50,13 @@ export class AuthPageComponent implements OnInit {
           localStorage.setItem('LoginInfo',JSON.stringify(LoginInfo));
           this.Isloading = false;
           this.IsError = false;
-        },(error:any)=>{
-          // console.log(error.error.error.message);
-          // this.ErrorMessage = error;
+        },
+        (error:any)=>{
           this.AlertMessage(error);
           this.Isloading = false;
-          // this.IsError = true;
-        });
+          this.IsError = true;
+        }
+        );
       };
       if(this.IsLogin)
       {GetAuthResult(this.authen.SignIn(email, password));

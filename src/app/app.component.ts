@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { AuthenService } from './share/services/authen/authen.service';
 
 @Component({
@@ -10,12 +11,15 @@ export class AppComponent  {
   title = 'App-Course';
   RecipeInfoDisplayFlg:boolean = false;
   ShoppingInfoDisplayFlg:boolean = false;
-  constructor(private authen:AuthenService){}
+  constructor(private authen:AuthenService, @Inject(PLATFORM_ID) private platformId:any){}
   ngOnInit() {
-    this.RenderContent();
-    this.authen.AutoLogin().subscribe((value:any)=>{
+    if(isPlatformBrowser(this.platformId)){
+      this.authen.AutoLogin().subscribe((value:any)=>{
       console.log(value);
     });
+    }
+    this.RenderContent();
+
   }
 
   RenderContent(e:any=undefined){

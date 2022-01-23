@@ -1,3 +1,4 @@
+
 import { RecipeService } from './share/services/recipe-services/recipe.service';
 import { CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ,NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,14 +18,16 @@ import { ShoppingRouteScopeModule } from './shopping-list/shopping--route--scope
 import { SharedModule } from './share/shared/shared.module';
 import { CoreModule } from './share/services/core-module';
 import { AuthModule } from './auth/auth/auth.module';
-
+import {StoreModule} from "@ngrx/store";
+import { ShoppingReducer, metaReducerLocalStorage } from './shopping-list/shopping-store/shopping-reducer';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     RecipeModuleModule,
@@ -32,6 +35,8 @@ import { AuthModule } from './auth/auth/auth.module';
     SharedModule,
     CoreModule,
     AuthModule,
+    StoreModule.forRoot({ShopEntries:ShoppingReducer},{metaReducers:[metaReducerLocalStorage]}),
+    BrowserAnimationsModule
   ],
   providers: [],
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],

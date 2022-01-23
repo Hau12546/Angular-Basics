@@ -16,3 +16,10 @@
 }
 
 
+.animation-test{
+  width: 100px;
+  margin-block: .1em;
+  height: 5em;
+  background-color: rgb(93, 90, 90);
+}
+

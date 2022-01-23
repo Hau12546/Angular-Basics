@@ -39,7 +39,7 @@ export class AuthenService {
       returnSecureToken: true
     }
     if (Object.values(UserLoginInfo).length > 0) {
-      return this.http.post < AuthenticatorResponse > (AuthAPI.signUpAPI, UserLoginInfo).pipe(catchError(this.AuthErrorHandler));
+      return this.http.post<AuthenticatorResponse>(AuthAPI.signUpAPI, UserLoginInfo).pipe(catchError(this.AuthErrorHandler));
     }
     throw new Error('LoginInfo is not enough');
   }
